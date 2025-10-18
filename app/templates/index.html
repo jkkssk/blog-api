@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блог</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .header { 
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 20px;
+        }
+        h1 { 
+            font-size: 2.5em;
+            font-weight: 300;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .nav { 
+            display: flex;
+            gap: 20px;
+        }
+        .nav a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        .posts-header {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            color: #444;
+        }
+        .post {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .post:last-child {
+            border-bottom: none;
+        }
+        .post-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #222;
+        }
+        .post-content {
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .post-meta {
+            font-size: 0.85em;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        .edit-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .edit-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Блог</h1>
+        <div class="subtitle">Платформа для ведения блога</div>
+        <div class="nav">
+            <a href="/posts/html/">Главная</a>
+            <a href="/posts/new/html">Новый пост</a>
+            <a href="/docs">АПИ Документация</a>
+        </div>
+    </div>
+
+    <div class="posts-header">Все посты</div>
+
+    {% for post in posts %}
+    <div class="post">
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-content">{{ post.content }}</div>
+        <div class="post-meta">
+            Автор: user{{ post.authorId }} • 
+            {{ post.createdAt.strftime('%d.%m.%Y %H:%M') }} • 
+            Лайков: {{ post.likes }} • 
+            Просмотров: {{ post.ratings|length }}
+        </div>
+        <a href="/posts/{{ post.id }}/edit/html" class="edit-link">Редактировать</a>
+    </div>
+    {% endfor %}
+</body>
+</html>

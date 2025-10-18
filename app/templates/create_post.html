@@ -93,18 +93,18 @@
         <h1>Блог</h1>
         <div class="subtitle">Платформа для ведения блога</div>
         <div class="nav">
-            <a href="/posts/html/">Главная</a>
-            <a href="/posts/new/html">Новый пост</a>
+            <a href="/">Главная</a>
+            <a href="/create">Новый пост</a>
             <a href="/docs">АПИ Документация</a>
         </div>
     </div>
 
     <h2>Создать новый пост</h2>
 
-    <form action="/posts/new/html" method="post">
+    <form action="/create" method="post">
         <div class="form-group">
-            <label for="authorId">Автор:</label>
-            <select id="authorId" name="authorId" required>
+            <label for="author_id">Автор:</label>
+            <select id="author_id" name="author_id" required>
                 {% for user in users %}
                 <option value="{{ user.id }}">user{{ user.id }} ({{ user.name }})</option>
                 {% endfor %}
@@ -123,7 +123,7 @@
 
         <div class="actions">
             <button type="submit" class="btn">Создать пост</button>
-            <a href="/posts/html/" class="btn btn-back">Отмена</a>
+            <a href="/" class="btn btn-back">Отмена</a>
         </div>
     </form>
 </body>

@@ -85,8 +85,8 @@
         <h1>Блог</h1>
         <div class="subtitle">Платформа для ведения блога</div>
         <div class="nav">
-            <a href="/posts/html/">Главная</a>
-            <a href="/posts/new/html">Новый пост</a>
+            <a href="/">Главная</a>
+            <a href="/create">Новый пост</a>
             <a href="/docs">АПИ Документация</a>
         </div>
     </div>
@@ -98,12 +98,12 @@
         <div class="post-title">{{ post.title }}</div>
         <div class="post-content">{{ post.content }}</div>
         <div class="post-meta">
-            Автор: user{{ post.authorId }} •
-            {{ post.createdAt.strftime('%d.%m.%Y %H:%M') }} •
+            Автор: user{{ post.author_id }} •
+            {{ post.created_at.strftime('%d.%m.%Y %H:%M') }} •
             Лайков: {{ post.likes }} •
             Просмотров: {{ post.ratings|length }}
         </div>
-        <a href="/posts/{{ post.id }}/edit/html" class="edit-link">Редактировать</a>
+        <a href="/edit/{{ post.id }}" class="edit-link">Редактировать</a>
     </div>
     {% endfor %}
 </body>

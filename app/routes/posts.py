@@ -28,11 +28,11 @@ async def create_post(authorId: int, title: str, content: str):
     now = datetime.now()
     post = Post(
         id=post_id,
-        authorId=authorId,
+        author_id=authorId,
         title=title,
         content=content,
-        createdAt=now,
-        updatedAt=now,
+        created_at=now,
+        updated_at=now,
     )
     posts[post_id] = post
     save_posts(posts)
@@ -61,7 +61,7 @@ async def update_post(post_id: int, title: str = None, content: str = None):
         post.title = title
     if content:
         post.content = content
-    post.updatedAt = datetime.now()
+    post.updated_at = datetime.now()
     posts[post_id] = post
     save_posts(posts)
     return post
@@ -81,7 +81,7 @@ async def like_post(post_id: int):
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
     post.likes += 1
-    post.updatedAt = datetime.now()
+    post.updated_at = datetime.now()
     posts[post_id] = post
     save_posts(posts)
     return {"result": "liked", "likes": post.likes}
@@ -96,7 +96,7 @@ async def rate_post_api(post_id: int, value: int = Form(...)):
         raise HTTPException(status_code=404, detail="Post not found")
     post.ratings.append(value)
     post.rating = round(sum(post.ratings) / len(post.ratings), 2)
-    post.updatedAt = datetime.now()
+    post.updated_at = datetime.now()
     posts[post_id] = post
     save_posts(posts)
     return {
@@ -131,11 +131,11 @@ async def create_post_form(
     now = datetime.now()
     post = Post(
         id=post_id,
-        authorId=authorId,
+        author_id=authorId,
         title=title,
         content=content,
-        createdAt=now,
-        updatedAt=now,
+        created_at=now,
+        updated_at=now,
     )
     posts[post_id] = post
     save_posts(posts)
@@ -147,7 +147,7 @@ async def view_post_html(request: Request, post_id: int):
     post = posts.get(post_id)
     if not post:
         return HTMLResponse("Post not found", status_code=404)
-    author = users.get(post.authorId)
+    author = users.get(post.author_id)
     return templates.TemplateResponse(
         "post.html", {"request": request, "post": post, "author": author}
     )
@@ -175,7 +175,7 @@ async def edit_post_submit(
         return HTMLResponse("Post not found", status_code=404)
     post.title = title
     post.content = content
-    post.updatedAt = datetime.now()
+    post.updated_at = datetime.now()
     posts[post_id] = post
     save_posts(posts)
     return RedirectResponse(url=f"/posts/{post_id}/html", status_code=303)
@@ -187,7 +187,7 @@ async def like_post_html(request: Request, post_id: int):
     if not post:
         return HTMLResponse("Post not found", status_code=404)
     post.likes += 1
-    post.updatedAt = datetime.now()
+    post.updated_at = datetime.now()
     posts[post_id] = post
     save_posts(posts)
     return RedirectResponse(url=f"/posts/{post_id}/html", status_code=303)
@@ -206,7 +206,7 @@ async def rate_post_html(
         return HTMLResponse("Rating must be 1-5", status_code=400)
     post.ratings.append(value)
     post.rating = round(sum(post.ratings) / len(post.ratings), 2)
-    post.updatedAt = datetime.now()
+    post.updated_at = datetime.now()
     posts[post_id] = post
     save_posts(posts)
     return RedirectResponse(url=f"/posts/{post_id}/html", status_code=303)

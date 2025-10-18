@@ -1,16 +1,15 @@
 from fastapi import FastAPI
-from app.routes import users, posts
+from app.routes import users, posts, pages
 
 app = FastAPI(title="Blog API", version="1.0.0")
 
 # Подключаем роутеры
-app.include_router(users.router, prefix="/users", tags=["users"])
-app.include_router(posts.router, prefix="/posts", tags=["posts"])
+app.include_router(users.router, prefix="/api/users", tags=["users"])
+app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
+app.include_router(pages.router, tags=["pages"])
 
-@app.get("/")
-async def root():
-    return {"message": "Blog API is running"}
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8004)
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)
